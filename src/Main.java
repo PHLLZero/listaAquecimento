@@ -8,7 +8,7 @@ public class Main {
         Persistencia persistencia = new Persistencia();
         String nomeArquivo = "central.xml";
 
-        CentralDeInformacoes central = = persistencia.recuperarCentral(nomeArquivo);
+        CentralDeInformacoes central = persistencia.recuperarCentral(nomeArquivo);
 
         String op = "";
 
