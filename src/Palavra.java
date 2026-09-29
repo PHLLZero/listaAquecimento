@@ -6,7 +6,7 @@ public class Palavra {
     private LocalDate dataCadastro;
     private Dificuldade nivelDificuldade;
 
-    public Palavra(String palavra, String dica, Dificuldade nivelDificuldade) {
+    public Palavra(String palavra, Dificuldade nivelDificuldade, String dica) {
         this.palavra = palavra;
         this.dica = dica;
         this.nivelDificuldade = nivelDificuldade;
