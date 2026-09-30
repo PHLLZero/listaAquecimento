@@ -88,6 +88,14 @@ public class Main {
                     }
                     break;
 
+                //adicionar case "4" - Salvar palavras a partir de um arquivo CSV
+
+                // Adicionar case "5" - Listar todas as palavras salvas na central
+
+                // Adicionar case "6" - Geração do relatorio em PDF
+
+                // Apagar MainTeste !!!!!!!!!!
+
                 case "S":
                     System.out.println("Saindo do programa...");
                     break;
