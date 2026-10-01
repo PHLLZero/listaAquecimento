@@ -18,6 +18,10 @@ public class Main {
             System.out.println("1 - Novo jogador");
             System.out.println("2 - Listar todos os jogadores");
             System.out.println("3 - Exibir informações de um jogador específico");
+            System.out.println("4 - ");
+            System.out.println("5 - ");
+            System.out.println("6 - ");
+            System.out.println("7 - ");
             System.out.println("S - Sair");
             System.out.print("Escolha uma opção: ");
             op = sc.nextLine();
@@ -34,14 +38,16 @@ public class Main {
                     System.out.print("E-mail: ");
                     String email = sc.nextLine();
 
-                    System.out.print("Sexo (M/F): ");
+                    System.out.print("Sexo (M/F/OUTROS): ");
                     String sexoInput = sc.nextLine();
 
                     Sexo sexo;
                     if (sexoInput.equals("M")) {
                         sexo = Sexo.MASCULINO;
-                    } else {
+                    } else if (sexoInput.equals("F")) {
                         sexo = Sexo.FEMININO;
+                    }else {
+                        sexo = Sexo.OUTROS;
                     }
 
                     Jogador novoJogador = new Jogador(nome, sexo, cpf, email);
@@ -94,7 +100,11 @@ public class Main {
 
                 // Adicionar case "6" - Geração do relatorio em PDF
 
+                // Adicionar case "7" - Enviar email
+
                 // Apagar MainTeste !!!!!!!!!!
+
+                // Testar erro do nome em branco
 
                 case "S":
                     System.out.println("Saindo do programa...");
