@@ -6,7 +6,7 @@ public class Mensageiro {
 
     private static final String emailRemetente = "mensageirojogodaforca@gmail.com";
 
-    private static final String senhaAPP = "aSenha@123";
+    private static final String senhaAPP = "zlsn gzza ewxz lciu";
 
     // padrao
     private static Session conectarServer() {
@@ -24,6 +24,12 @@ public class Mensageiro {
     }
 
     public static void enviarMensagem(String emailDestinatario, String assunto, String mensagemTexto) {
+        if (emailDestinatario == null || emailDestinatario.trim().isEmpty()) {
+            System.out.println("E-mail do destinatário está vazio ou inválido.");
+            return;
+        }
+        emailDestinatario = emailDestinatario.trim();
+
         try {
             Message message = new MimeMessage(conectarServer());
 

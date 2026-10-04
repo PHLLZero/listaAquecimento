@@ -33,7 +33,7 @@ public class GeradorDeRelatorios {
                 document.add(new Paragraph("Nenhum jogador cadastrado.\n\n", fonteTexto));
             } else {
                 for (Jogador jogador : central.getTodosOsJogadores()) {
-                    document.add(new Paragraph("- " + jogador.toString(), fonteTexto));
+                    document.add(new Paragraph("-> " + jogador.toString(), fonteTexto));
                 }
                 document.add(new Paragraph("\n"));
             }

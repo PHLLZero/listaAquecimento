@@ -14,21 +14,21 @@ public class Main {
 
         while (!op.equals("S")){
 
-            System.out.println("\n=== MENU CENTRAL DE INFORMAÇÕES ===");
+            System.out.println("\n=== MENU CENTRAL DE INFORMAÇÕES ===\n");
             System.out.println("1 - Novo jogador");
             System.out.println("2 - Listar todos os jogadores");
             System.out.println("3 - Exibir informações de um jogador específico");
-            System.out.println("4 - ");
-            System.out.println("5 - ");
-            System.out.println("6 - ");
-            System.out.println("7 - ");
+            System.out.println("4 - Salvar palavras a partir de um arquivo CSV");
+            System.out.println("5 - Listar todas as palavras salvas na central");
+            System.out.println("6 - Geração do relatório em PDF");
+            System.out.println("7 - Enviar uma mensagem para todos os jogadores");
             System.out.println("S - Sair");
-            System.out.print("Escolha uma opção: ");
+            System.out.print("\nEscolha uma opção: ");
             op = sc.nextLine();
 
-            switch (op){
+            switch (op) {
                 case "1":
-                    System.out.println("\n-*- Novo Jogador -*-\n");
+                    System.out.println("\n--- Novo Jogador ---\n");
                     System.out.print("Nome: ");
                     String nome = sc.nextLine();
 
@@ -46,7 +46,7 @@ public class Main {
                         sexo = Sexo.MASCULINO;
                     } else if (sexoInput.equals("F")) {
                         sexo = Sexo.FEMININO;
-                    }else {
+                    } else {
                         sexo = Sexo.OUTROS;
                     }
 
@@ -60,9 +60,8 @@ public class Main {
 
                     break;
 
-
                 case "2":
-                    System.out.println("\n-*- Lista de Jogadores -*-\n");
+                    System.out.println("\n--- Lista de Jogadores ---\n");
                     ArrayList<Jogador> jogadores = central.getTodosOsJogadores();
 
                     if (jogadores.isEmpty()) {
@@ -77,7 +76,7 @@ public class Main {
 
 
                 case "3":
-                    System.out.println("\n-*- Exibir Jogador Específico -*-\n");
+                    System.out.println("\n--- Exibir Jogador Específico ---\n");
                     System.out.print("Digite o CPF do jogador: ");
                     String cpfBusca = sc.nextLine();
 
@@ -94,17 +93,67 @@ public class Main {
                     }
                     break;
 
-                //adicionar case "4" - Salvar palavras a partir de um arquivo CSV
+                case "4":
+                    System.out.println("\n--- Salvar Palavras a partir de CSV ---\n");
+                    System.out.print("Informe o nome do arquivo CSV: ");
+                    String caminhoCSV = sc.nextLine();
 
-                // Adicionar case "5" - Listar todas as palavras salvas na central
+                    ArrayList<Palavra> palavrasExtraidas = ExtratorPalavrasCSV.extrairPalavras(caminhoCSV);
 
-                // Adicionar case "6" - Geração do relatorio em PDF
+                    if (palavrasExtraidas == null) {
+                        System.out.println("Erro ao ler o arquivo CSV. Verifique se o nome está correto");
+                    } else if (palavrasExtraidas.isEmpty()) {
+                        System.out.println("Nenhuma palavra encontrada no arquivo CSV");
+                    } else {
+                        boolean algumaAdicionada = false;
+                        for (Palavra p : palavrasExtraidas) {
+                            if (central.adicionarPalavra(p)) {
+                                algumaAdicionada = true;
+                            }
+                        }
 
-                // Adicionar case "7" - Enviar email
+                        if (algumaAdicionada) {
+                            persistencia.salvarCentral(central, nomeArquivo);
+                        }
+                    }
+                    break;
 
-                // Apagar MainTeste !!!!!!!!!!
+                case "5":
+                    System.out.println("\n--- Lista de Palavras ---\n");
+                    ArrayList<Palavra> palavras = central.getTodasAsPalavras();
 
-                // Testar erro do nome em branco
+                    if (palavras.isEmpty()) {
+                        System.out.println("Nenhuma palavra encontrada.");
+                    } else {
+                        for (Palavra p : palavras) {
+                            System.out.println("Palavra: " + p.getPalavra() + " | Dica: " + p.getDica() + "Dificuldade: " + p.getNivelDificuldade());
+                        }
+                    }
+                    break;
+
+                case "6":
+                    System.out.println("\n--- Gerar Relatório em PDF ---\n");
+                    GeradorDeRelatorios.gerarRelatorio(central);
+                    break;
+
+                case "7":
+                    System.out.println("\n--- Enviar Mensagem para Todos os Jogadores ---\n");
+                    ArrayList<Jogador> listaJogadores = central.getTodosOsJogadores();
+
+                    if (listaJogadores.isEmpty()) {
+                        System.out.println("Nenhuma jogador cadastrado para receber mensagem.");
+                    } else {
+                        System.out.print("Digite o assunto da mensagem: ");
+                        String assunto = sc.nextLine();
+
+                        System.out.print("Digite o texto da mensagem: ");
+                        String mensagemTexto = sc.nextLine();
+
+                        for (Jogador j : listaJogadores) {
+                            Mensageiro.enviarMensagem(j.getEmail(), assunto, mensagemTexto);
+                        }
+                    }
+                    break;
 
                 case "S":
                     System.out.println("Saindo do programa...");
